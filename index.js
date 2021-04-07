@@ -1,8 +1,14 @@
 const express = require('express');
 const port = 9000;
+const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 
 let app = express();
+
+app.use(expressLayouts);
+app.use(express.static('./assets'));
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
