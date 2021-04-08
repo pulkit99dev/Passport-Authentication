@@ -5,6 +5,10 @@ const path = require('path');
 const db = require('./config/mongoose')
 const cookieParser = require('cookie-parser');
 
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('passport-local');
+
 let app = express();
 
 app.use(express.urlencoded());
