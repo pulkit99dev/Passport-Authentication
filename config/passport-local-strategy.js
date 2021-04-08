@@ -15,8 +15,9 @@ passport.use(
         if (!user) {
           return done(null, false);
         }
-        if (!user.verifyPassword(password)) {
-          return done(null, false);
+        if (!user || user.password != password) {
+            console.log("Invalid Username/Password");
+            return done(null, false);
         }
         return done(null, user);
       });
@@ -38,14 +39,14 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-passport.checkAuthentication = function (req, res) {
+passport.checkAuthentication = function (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   return res.redirect("/users/sign-in");
 };
 
-passport.setAuthenticatedUser = function (req, res) {
+passport.setAuthenticatedUser = function (req, res, next) {
   if (req.isAuthenticated()) {
     res.locals.user = req.user;
   }
